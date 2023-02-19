@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poll</title>
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="fonts/material-icons.css">
+    <link rel="stylesheet" href="css/sweetalert2.min.css">
+    <link rel="stylesheet" href="css/poll.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Navbar -->
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper green">
+                    <a href="index.html" class="brand-logo">POLrgL</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li v-if="adminCheck == admin">
+                            <a href="./controller/admin.html" id="adminSetBtn">
+                                <i class="material-icons">settings</i>
+                                Settings
+                            </a>
+                        </li>
+                        <li v-if="user">
+                            <a href="profile.html" id="profile_aTag">
+                                <i class="material-icons">account_circle</i>
+                                Profile
+                            </a>
+                        </li>
+                        <!-- Modal Trigger -->
+                        <li v-if="user == null || user.length < 1">
+                            <a href="#1" @click='showModal'>Login/Register</a>
+                        </li>
+                        <li v-else>
+                            <a href="#" @click='logout'>Logout</a>
+                        </li>
+                    </ul>
+
+                    <!-- Sidenav Trigger -->
+                    <ul>
+                        <a href="#" data-target="slide-out" class="sidenav-trigger"><i
+                                class="material-icons">menu</i></a>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Sidenav -->
+        <ul id="slide-out" class="sidenav">
+            <div class="background">
+                <img src="img/vote.jpg">
+            </div>
+
+            <li v-if="adminCheck == admin">
+                <a href="./controller/admin.html" id="adminSetBtn">
+                    <i class="material-icons">settings</i>
+                    Settings
+                </a>
+            </li>
+
+            <li v-if="user">
+                <a href="profile.html" id="profile_aTag">
+                    <i class="material-icons">account_circle</i>
+                    Profile
+                </a>
+            </li>
+
+            <!-- Modal Trigger -->
+            <li v-if="user == null || user.length < 1">
+                <a href="#1" @click='showModal'>Login/Register</a>
+            </li>
+
+            <li v-else>
+                <a href="#" @click='logout' id="logoutIcon">
+                    <i class="material-icons">lock_outline</i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+
+            <div class="container">
+                <!-- Login Div -->
+                <div id="logDiv">
+
+                    <div class="modal-content">
+                        <h4>Login</h4>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="email">Email</label>
+                        <input v-model="email" type="text" id="email" name="email" class="validate">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="pass">Password</label>
+                        <input v-model="pass" type="password" id="pass" name="pass" class="validate">
+                    </div>
+
+                    <div class="row">
+                        <button @click='login' type="submit" class="btn waves-effect waves-light col s12 blue"
+                            id="loginBtn">submit</button>
+                    </div>
+
+                    <div class="modal-footer">
+                        Don't have an account?
+                        <a href="#!" id="logSwapBtn">Register</a>
+                    </div>
+
+                </div>
+
+                <!-- Registry Div -->
+                <div id="regDiv" class="hide">
+
+                    <div class="modal-content">
+                        <h4>Register</h4>
+                    </div>
+
+
+                    <div class="input-field">
+                        <label for="fName">Firstname</label>
+                        <input v-model="fName" type="text" name="fName" id="fName" class="validate">
+                    </div>
+                    <div class="input-field">
+                        <label for="lName">Lastname</label>
+                        <input v-model="lName" type="text" name="lName" id="lName" class="validate">
+                    </div>
+                    <div class="input-field">
+                        <label for="oName">othername</label>
+                        <input v-model="oName" type="text" name="oName" id="oName" class="validate">
+                    </div>
+                    <div class="input-field">
+                        <p>
+                            Gender
+                            <label>
+                                <input v-model="gender" class="with-gap" name="gender" value="M" type="radio" />
+                                <span>Male</span>
+                            </label>
+                            <label>
+                                <input v-model="gender" class="with-gap" name="gender" value="F" type="radio" />
+                                <span>Female</span>
+                            </label>
+                        </p>
+
+                    </div>
+                    <div class="input-field">
+                        <label for="regEmail">Email</label>
+                        <input v-model="regEmail" type="text" name="regEmail" id="regEmail" class="validate">
+                    </div>
+                    <div class="input-field">
+                        <label for="username">Username</label>
+                        <input v-model="username" type="text" name="username" id="username" class="validate">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="phone">Phone</label>
+                        <input v-model="phone" type="number" name="phone" id="phone" class="validate">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="regPass">Password</label>
+                        <input v-model="regPass" type="password" name="regPass" id="regPass" class="validate">
+                    </div>
+                    <div class="input-field">
+                        <label for="cRegPass">Confirm Password</label>
+                        <input v-model="cRegPass" type="password" name="cRegPass" id="cRegPass" class="validate">
+                    </div>
+
+                    <div class="row">
+                        <button @click='register' type="submit" class="btn waves-effect waves-light col s12 blue"
+                            id="regBtn">submit</button>
+                    </div>
+
+                    <div class="modal-footer">
+                        Already have an account?
+                        <a href="#!" id="regSwapBtn">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="container" style="margin-bottom: 80px;">
+            <h1 class="center">ALL POLLS</h1>
+        </div>
+        <div v-for="poll in polls" class="row">
+            <div class="col l8 s12 m6 offset-l2">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <div id="containPollBtn">
+                            <span class="card-title" id="pollTopic">{{ poll.topic }}</span>
+        
+                            <button v-if="adminCheck == admin" @click="deletePoll(poll._id)"
+                                class="waves-effect waves-light red btn" id="deletePollBtn">
+                                delete
+                            </button>
+                        </div>
+                        <p>
+                            {{ poll.title }}
+                            <!-- njj -->
+                        </p>
+                    </div>
+                    <div class="card-action">
+        
+                        <div class="row">
+                            <div class="col l6 center">
+                                <a href="#" v-if="user == null || user.length < 1" class="btn-flat disabled">{{
+                                    poll.optionA }}</a>
+        
+                                <a href="#" v-else @click="response('A', poll._id)" :class="{ disabled: !poll.toggle }"
+                                    class="btn-flat">{{ poll.optionA }}</a>
+                            </div>
+        
+                            <div class="col l6 center">
+                                <a href="#" v-if="user == null || user.length < 1" class="btn-flat disabled">{{
+                                    poll.optionB }}</a>
+        
+                                <a href="#" v-else @click="response('B', poll._id)" :class="{ disabled: !poll.toggle }"
+                                    class="btn-flat">{{ poll.optionB }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div v-if="user == null || user.length < 1" class="col l12 center">
+                <small>
+                    {{ poll.optionAVoters.length + poll.optionBVoters.length }} total votes
+                </small>
+            </div>
+            <div v-else class="col l12">
+                <div class="col l6 center">
+                    <small>
+                        {{ poll.optionAVoters.length }}
+                        vote
+                    </small>
+                </div>
+        
+                <div class="col l6 center">
+                    <small>
+                        {{ poll.optionBVoters.length }}
+                        vote
+                    </small>
+                </div>
+        
+                <div v-if="adminCheck == admin">
+                    <!-- Switch -->
+                    <div class="switch center">
+                        <label>
+                            Off
+                            <input @click="checkbox" :data-id="poll._id" :checked="poll.toggle" type="checkbox">
+                            <span class="lever"></span>
+                            On
+                        </label>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+        
+        
+        </div>
+
+        
+
+        <!-- FOOTER -->
+        <!-- <footer class="page-footer green center" id="footer">
+            &copy; Poll voting system {{ newDate.getFullYear() }}
+        </footer> -->
+
+        <footer class="page-footer green " id="footer">
+
+            <div class="footer-copyright">
+                <div class="container">
+                    &copy; Poll voting system {{ newDate.getFullYear()}} <i><b> igc@gmail.com </b></i>
+
+                    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/socket.io.min.js"></script>
+    <script src="js/socketCOn.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script src="js/poll.js"></script>
+    <script src="js/pollStyle.js"></script>
+</body>
+
+</html>

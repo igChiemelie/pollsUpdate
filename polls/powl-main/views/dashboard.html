@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./css/materialize.css" />
+    <link rel="stylesheet" href="./fonts/material-icons.css" />
+    <link rel="stylesheet" href="./css/powl.css" />
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+          <a href="/" class="brand-logo">Logo</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {{#nam}}
+                <!-- Dropdown Trigger -->
+                <li><a class='dropdown-trigger' href="#!" data-target='dropdown1'>{{nam}}</a></li>
+            {{/nam}}
+            {{^nam}}
+
+            {{/nam}}
+          </ul>
+        </div>
+    </nav>
+
+
+    <!-- Dropdown Structure -->
+    <ul id='dropdown1' class='dropdown-content'>
+        <li><a href="/logout">Logout</a></li>
+        <!-- <li class="divider" tabindex="-1"></li> -->
+    </ul>
+
+    <div class="container">
+        <h1>Dashboard</h1>
+
+        <div class="title">
+            <!-- Poll Tittle -->
+            {{#pollsTitle}}
+                {{pollsTitle}}
+            {{/pollsTitle}}
+        </div>
+  
+        <div class="row center">
+            <form action="" method="POST" id="pollPostForm">
+                <div class="col s6" id="optionA">
+                    <!-- Poll OptionA -->
+                    <input type="button" id="optBtn_A" class="testBtn" name="optionA" value="{{pollsoptionA}}">
+                </div>
+
+                <div class="col s6" id="optionB">
+                    <!-- Poll OptionB -->
+                    <input type="button" id="optBtn_B" class="testBtn" name="optionB" value="{{pollsoptionB}}">
+                </div>
+                
+                <input type="hidden" id="userId" name="userId" value="{{userId}}">
+                <!-- <button type="submit">submit</button> -->
+            </form>
+        </div>
+    </div>
+
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="./js/materialize.min.js"></script>
+    <script src="./js/powl.js"></script>
+    <!-- <script>
+        let userId = userId;
+        console.log(userId);
+    </script> -->
+</body>
+</html>

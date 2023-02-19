@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLL User - Profile</title>
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="fonts/material-icons.css">
+    <link rel="stylesheet" href="css/sweetalert2.min.css">
+    <link rel="stylesheet" href="css/poll.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navbar -->
+                <div v-if="user == null || user.length < 1" class="row">
+                    <img src="img/error404.jpg" alt="img/error404.jpg" width="100%" height="770vh" id="error404Img">
+                    <a href="index.html" class="btn waves-effect waves-light col s5 offset-s4 green" id="error404Btn">
+                        Back to Homepage
+                    </a>
+                </div>
+
+                <div v-else>
+                    <div class="navbar-fixed">
+                        <nav>
+                            <div class="nav-wrapper green">
+                                <a href="index.html" class="brand-logo">POLL</a>
+                                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                    <li>
+                                        <a href="index.html" id="homeBtn">
+                                            <i class="material-icons">home</i>
+                                            Home
+                                        </a>
+                                    </li>
+                        
+                                    <li v-if="adminCheck == admin">
+                                        <a href="./controller/admin.html" id="adminSetBtn">
+                                            <i class="material-icons">settings</i>
+                                            Settings
+                                        </a>
+                                    </li>
+                        
+                                    <!-- Modal Trigger -->
+                                    <li v-if="user == null || user.length < 1">
+                                        <a href="#1" @click='showModal'>Login/Register</a>
+                                    </li>
+                                    <li v-else>
+                                        <a href="#" @click='logout'>Logout</a>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    
+                    <!-- Sidenav -->
+                    <ul id="slide-out" class="sidenav">
+
+                        <div class="background">
+                            <img src="img/vote.jpg">
+                        </div>
+
+                        <li>
+                            <a href="index.html" id="homeBtn">
+                                <i class="material-icons">home</i>
+                                Home
+                            </a>
+                        </li>
+
+                        <li v-if="adminCheck == admin">
+                            <a href="./controller/admin.html" id="adminSetBtn">
+                                <i class="material-icons">settings</i>
+                                Settings
+                            </a>
+                        </li>
+
+                        <!-- Modal Trigger -->
+                        <li v-if="user == null || user.length < 1">
+                            <a href="#1" @click='showModal'>Login/Register</a>
+                        </li>
+
+                        <li v-else>
+                            <a href="#" @click='logout' id="logoutIcon">
+                                <i class="material-icons">lock_outline</i>
+                                Logout
+                            </a>
+                        </li>
+
+                    </ul>
+                    
+                    
+                    
+                    <!-- Profile Body -->
+                    <div class="container" v-if="adminCheck == admin || user">
+                        <h1>Dashboard</h1>
+                      
+                    
+                        <div id="profileContainDiv">
+                    
+                            <div class="card" id="card">
+                    
+                                <div v-if="checkGender == gender" class="card-image waves-effect waves-block waves-light">
+                                    <!-- <img class="activator" src='{{user.uploadImg}}' id="profileImg"> -->
+                    
+                    
+                                    <div v-if="user.uploadImg == image">
+                                        <img src="./img/svg_male.png" class="activator" alt="" srcset="" id="profileImg">
+                                    </div>
+                    
+                                    <div v-else>
+                                        <img class="activator" :src="'http://localhost:4000/media/img/'+user.uploadImg" id="profileImg">
+                                    </div>
+                                </div>
+                                <div v-else class="card-image waves-effect waves-block waves-light">
+                                    <div v-if="user.uploadImg == image">
+                                        <img class="activator" src="img/svg_female.png" id="profileImg">
+                    
+                                    </div>
+                    
+                                    <div v-else>
+                                        <img class="activator" :src="'http://localhost:4000/media/img/'+user.uploadImg" id="profileImg">
+                                    </div>
+                                </div>
+                    
+                                <div class="card-content">
+                                    <span class="card-title activator grey-text text-darken-4" id="profileUsername"> {{ user.firstname }} {{
+                                        user.lastname }}<i class="material-icons right">more_vert</i></span>
+                    
+                                    <p v-if="adminCheck == admin">
+                                        <a href="controller/admin.html" class="profileUserType">{{ user.userType }}</a>
+                                    </p>
+                                    <p v-else>
+                                        <a href="index.html" class="profileUserType">{{ user.userType }}</a>
+                                    </p>
+                    
+                                </div>
+                                <div class="card-reveal" style="z-index: 1;">
+                                    <span class="card-title grey-text text-darken-4" id="cardRevealUserDetails">User Details<i
+                                            class="material-icons right">close</i></span>
+                                    <p>Here is some more information about yourself, you can also update some provided information about you
+                                        here.</p>
+                                    <hr>
+                                    <div>
+                                        <p class="cardRevealTexts">NAME : <span id="cardRevealUsername"> {{ user.firstname }} {{
+                                                user.lastname }}</span></p>
+                                        <p class="cardRevealTexts">EMAIL : <span id="cardRevealEmail">{{ user.email }}</span></p>
+                                        <p class="cardRevealTexts">TYPE : <span id="cardRevealUsername">{{ user.userType }}</span></p>
+                                        <p class="cardRevealTexts">GENDER : <span id="cardRevealUsername">{{ user.gender }}</span></p>
+                                        <p class="cardRevealTexts">PHONE : <span id="cardRevealEmail">{{ user.phone }}</span></p>
+                                    </div>
+                    
+                                    <!-- Update User Modal Trigger -->
+                                    <a href="#updateUserModal" class="btn waves-effect waves-green blue center modal-trigger">update
+                                        profile</a>
+                                </div>
+                            </div>
+                    
+                            <!-- Update User Modal Structure -->
+                            <div id="updateUserModal" class="modal">
+                                <div class="container">
+                                    <div class="modal-content">
+                                        <h4>Update Profile</h4>
+                                        <p>NOTE: Email should be an active one for that will be what you'll use to login to your account on your
+                                            next visit.</p>
+
+                                        <form action="">
+                                            <div class="row updateUserForm">
+
+                                                <div class="input-field">
+                                                    <label for="upUserFname">Firstname</label>
+                                                    <input required v-model="upUserFname" type="text" name="upUserFname" id="upUserFname">
+                                                </div>
+
+                                                <div class="input-field">
+                                                    <label for="upUserLName">Lastname</label>
+                                                    <input required v-model="upUserLName" type="text" name="upUserLName" id="upUserLName">
+                                                </div>
+
+                                                <div class="input-field">
+                                                    <label for="upUserEmail">Email</label>
+                                                    <input required v-model="upUserEmail" type="email" name="upUserEmail" id="upUserEmail">
+                                                </div>
+
+                                                <div class="input-field">
+                                                    <label for="upUserPhone">Phone</label>
+                                                    <input required v-model="upUserPhone" type="number" name="upUserPhone" id="upUserPhone">
+                                                </div>
+
+                                                <div class="input-field">
+                                                    <input required type="file" name="uploadImg"  @change="onFileChange" id="uploadImg" ref="uploadImg" >
+                                                </div>
+
+
+                                                <button @click="updateUserProfile" type="submit" class="btn waves-effect waves-green blue col s12">
+                                                    Submit
+                                                    <i class="material-icons right">send</i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grey lighten-4" id="profileDetails">
+
+                                <p id="profileUserPollOption">User Poll Options</p>
+
+                                <div v-for="profileUserPoll in profileUserPolls">
+                                    <span class="pollInfo">Poll Title :</span>
+                                    <p class="profileUserPollTitle">{{ profileUserPoll.title }}</p>
+                                    <span class="pollInfo">Poll Option :</span>
+                                    <p class="profileUserPollOption">{{ profileUserPoll.option }}</p>
+                                    <hr>
+                                </div>
+                                <div v-else>
+                                    <em>Nothing to show for this user.</em>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+
+                    
+                    <!-- <footer class="page-footer green center" id="footer">
+                        &copy; Poll voting system 
+                    </footer> -->
+
+                    <footer class="page-footer green">
+                    
+                        <div class="footer-copyright">
+                            <div class="container">
+                                &copy; {{ newDate.getFullYear() }} <i><b> igc@gmail.com </b></i>
+                    
+                                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+       
+    </div>
+    
+
+
+    <script src="js/socket.io.min.js"></script>
+    <script src="js/socketCOn.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/poll.js"></script>
+    <script src="js/sweetalert2.all.min.js"></script>     
+    <script src="js/pollStyle.js"></script>
+</body>
+</html>

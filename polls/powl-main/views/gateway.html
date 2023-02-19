@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway</title>
+    <link rel="stylesheet" href="./css/materialize.css" />
+    <link rel="stylesheet" href="./fonts/material-icons.css" />
+    <link rel="stylesheet" href="./css/powl.css" />
+</head>
+<body>
+    <!-- Login Form -->
+    <div class="loginContainDiv">
+        <form action="/login" method="POST" id="">
+            <div class="internalLoginContainDiv z-depth-3">
+                <h3 class="center">Login</h3>
+                
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email">
+                    </div>
+                    <div class="input-field col s12">
+                        <label for="pass">Password</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                    <button type="submit" class="btn waves-effect waves-light col s12" name="logBtn" id="logBtn">
+                        Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                    <p class="center">Dont't have an account? <a href="#!" id="logSwapBtn">Create Account</a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Registry Div -->
+    <div class="regContainDiv hide">
+        <form action="/register" method="POST" id="nodeRegForm">
+            <div class="internalRegContainDiv hoverable">
+                <h3 class="center">Registry <span class="colForm">Form</span></h3>
+                
+                <div class="row">
+                    <div class="input-field col s6">
+                        <label for="firstname">Firstname</label>
+                        <input type="text" name="firstname" id="firstname" class="validate" required>
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="lastname">Lastname</label>
+                        <input type="text" name="lastname" id="lastname" class="validate" required>
+                    </div>
+                    <div class="input-field col s12">
+                        <label for="othername">Othername</label>
+                        <input type="text" name="othername" id="othername">
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" class="validate" required>
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="email">Email</label>
+                        <input type="email" name="regEmail" id="regEmail" class="validate" required>
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="password">Password</label>
+                        <input type="password" name="regPassword" id="regPassword" class="validate" required>
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="cPassword">Confirm Password</label>
+                        <input type="password" name="cPassword" id="cPassword" class="validate" required>
+                    </div>
+                    
+                    <p>
+                        <label>
+                          <input class="with-gap" name="gender" type="radio" value="M" checked />
+                          <span>Male</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input class="with-gap" name="gender" type="radio" value="F" />
+                            <span>Female</span>
+                        </label>
+                    </p>
+
+                    <button type="submit" class="btn waves-effect waves-light col s12" name="regBtn" id="regBtn">
+                        Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                    <p class="center" id="regSwapBtn">Already have an account? <a href="#!">Login</a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="./js/materialize.min.js"></script>
+    <script src="./js/powl.js"></script>
+</body>
+</html>

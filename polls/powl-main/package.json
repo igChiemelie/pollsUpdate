@@ -1,0 +1,35 @@
+{
+	"name": "powl",
+	"version": "1.0.0",
+	"description": "Public opinion survey",
+	"main": "index.js",
+	"scripts": {
+		"dev": "nodemon index.js"
+	},
+	"keywords": [
+		"poll",
+		"survey",
+		"Nigeria",
+		"Niaja"
+	],
+	"author": "tonyWorld",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "latest",
+		"bluebird": "latest",
+		"body-parser": "^1.19.0",
+		"cookie-parser": "latest",
+		"cors": "^2.8.5",
+		"csurf": "latest",
+		"dotenv": "^10.0.0",
+		"express": "latest",
+		"express-session": "latest",
+		"formidable": "^1.2.2",
+		"moment": "latest",
+		"mongoose": "latest",
+		"mongoose-unique-validator": "latest",
+		"mustache-express": "latest",
+		"nodemailer": "^6.6.2",
+		"socket.io": "^4.1.2"
+	}
+}

@@ -1,0 +1,40 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+a.brand-logo{
+    margin-left: 90px;
+}
+div.internalLoginContainDiv{
+    background-color: #f3f6fa;
+    width: 30%;
+    margin: 130px auto 30px auto;
+    padding: 30px;
+}
+button#logBtn{
+    margin: 30px 0;
+}
+div.internalRegContainDiv{
+    background-color: #f3f6fa;
+    border: 1px solid rgb(202, 202, 202);
+    width: 40%;
+    margin: 66px auto 30px auto;
+    padding: 30px;
+    height: 85vh;
+    overflow-x: hidden;
+}
+h3 span.colForm{
+    color: #51a79b;
+}
+button#regBtn{
+    margin: 30px 0;
+}
+div.title{
+    width: 30%;
+    height: 9vh;
+    background-color: grey;
+    color: white;
+    margin: 0 auto 30px auto;
+    text-align: center;
+    line-height: 60px;
+}

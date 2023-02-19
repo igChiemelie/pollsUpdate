@@ -1,0 +1,219 @@
+body, html {
+    padding: 0;
+    margin: 0;
+}
+nav .nav-wrapper {
+    padding-left: 1.5vw;
+}
+.card-action .row {
+    margin-bottom: 0;
+}
+.card-action a {
+    width: 100%;
+}
+div#usersNamesDiv{
+    margin-right: 30px;
+}
+h1#adminH1{
+    margin-bottom: 50px;
+}
+#adminSetBtn, #homeBtn{
+    display: flex;
+}
+#usersNameList{
+    font-size: 1.3rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-transform: capitalize;
+    color: rgb(6, 86, 133);
+    letter-spacing: 1.1px;
+}
+#userPollTitle{
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+#userPollAns{
+    font-size: 1.1rem;
+}
+#update_icon{
+    margin-right: 90px;
+    cursor: pointer;
+}
+#disabled_update_icon{
+    margin-right: 90px;
+}
+#del_icon{
+    cursor: pointer;
+}
+#logoutIcon{
+    display: flex;
+}
+i#restoreIcon.material-icons.red-text{
+    font-size: 2rem;
+}
+#adminControlDelBtn{
+    margin-top: 13px;
+}
+#profile_aTag{
+    display: flex;
+}
+#card{
+    width: 50%;
+    height: 59vh;
+}
+#profileImg{
+    margin: 3vh auto 0 auto;
+    width: 18vw;
+    height: 39vh;
+    z-index: -1;
+}
+#profileContainDiv{
+    display: flex;
+}
+#error404Btn{
+    margin-top: -7vh;
+}
+
+#profileDetails{
+    width: 50%; 
+    height: 60vh;
+    margin-left: 60px;
+    overflow-y: scroll;
+    border-radius: 3px;
+    border: 1px solid #d6dee1;
+    padding: 1rem;
+}
+
+/* Poll */
+div#containPollBtn{
+    display: flex;
+}
+#pollTopic{
+    text-transform: uppercase;
+}
+#pollContainDiv{
+    width: 30%;
+    margin: auto;
+}
+div#pollFormBorderDiv{
+    border: 1px solid grey;
+}
+button#deletePollBtn{
+    margin-left: 26vw;
+    float: right;
+}
+
+/* Profile */
+#profileUsername{
+    text-transform: capitalize;
+    font-weight: 400;
+}
+.profileUserType{
+    text-transform: capitalize;
+    font-size: 1.2rem;
+}
+#cardRevealUserDetails{
+    font-weight: 500;
+    text-align: center;
+}
+#cardRevealUsername{
+    font-size: 1.3rem;
+    text-transform: capitalize;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    color: rgb(97, 94, 94);
+}
+#cardRevealEmail{
+    font-size: 1rem;
+    text-transform: lowercase;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+}
+.cardRevealTexts{
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+#profileUserPollOption{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+}
+.profileUserPollTitle{
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 0;
+}
+.profileUserPollOption{
+    text-align: center;
+    font-size: 1.3rem;
+    margin-top: 0;
+}
+.pollInfo{
+    font-weight: 500;
+}
+
+/* Scrollbar Design */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 50px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: green;
+}
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+/* Footer */
+#footer{
+    width: 100%;
+    height: 7vh;
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+}
+
+/* Media Query */
+@media screen and (max-width: 640px){
+    /* #pollTopic{
+        text-transform: uppercase;
+        display: inline-block;
+    } */
+    #profileContainDiv{
+        display: block;
+    }
+    #card{
+        width: 100%;
+        height: 44vh;
+    }
+    #profileImg{
+        margin: 3vh auto 0 auto;
+        width: 50vw;
+        height: 23vh;
+        z-index: -1;
+    }
+    #profileDetails{
+        width: 100%; 
+        height: 44vh;
+        margin-left: 0px;
+        overflow-y: scroll;
+        border-radius: 3px;
+        border: 1px solid #d6dee1;
+        padding: 1rem;
+    }
+    #pollContainDiv{
+        width: 93%;
+        margin: auto;
+    }
+    /* button#deletePollBtn{
+        margin: 0 0 0 44vw;
+        display: inline-block;
+    } */
+    #footer{
+        width: 100%;
+        height: 7vh;
+        position: fixed;
+        bottom: 0;
+        z-index: 1;
+    }
+}
+

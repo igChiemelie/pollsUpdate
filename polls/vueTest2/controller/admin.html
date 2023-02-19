@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLL Admin - Page</title>
+    <link rel="stylesheet" href="../css/materialize.min.css">
+    <link rel="stylesheet" href="../fonts/material-icons.css">
+    <link rel="stylesheet" href="../css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../css/poll.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navbar -->
+        <div v-if="adminCheck !== admin" class="row">
+            <img src="../img/error404.jpg" alt="img/error404.jpg" width="100%" height="770vh" id="error404Img">
+            <a href="../index.html" class="btn waves-effect waves-light col s5 offset-s4 green" id="error404Btn">
+                Back to Homepage
+            </a>
+        </div>
+
+        <div v-else>
+            <!-- Navbar -->
+            <nav class="nav-extended green darken-1">
+                <div class="nav-wrapper green">
+        
+                    <a href="../index.html" class="brand-logo">POLL</a>
+        
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+        
+                        <li>
+                            <a href="../index.html" id="homeBtn">
+                                <i class="material-icons">home</i>
+                                Home
+                            </a>
+                        </li>
+        
+                        <li v-if="user">
+                            <a href="../profile.html" id="profile_aTag">
+                                <i class="material-icons">account_circle</i>
+                                Profile
+                            </a>
+                        </li>
+        
+                        <!-- Modal Trigger -->
+                        <li v-if="user == null || user.length < 1">
+                            <a href="#1" @click='showModal'>Login/Register</a>
+                        </li>
+        
+                        <li v-else>
+                            <a href="#" @click='logout'>Logout</a>
+                        </li>
+        
+                    </ul>
+        
+                    <!-- Sidenav Trigger -->
+                    <ul>
+                        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    </ul>
+        
+                </div>
+                <div class="nav-content">
+                    <ul class="tabs tabs-transparent">
+                        <li class="tab"><a href="#test1" class="active">users</a></li>
+                        <li class="tab"><a href="#test2">restore</a></li>
+                        <li class="tab"><a href="#test3">add poll</a></li>
+                    </ul>
+                </div>
+            </nav>
+        
+            <!-- Sidenav -->
+            <ul id="slide-out" class="sidenav">
+        
+                <div class="background">
+                    <img src="../img/vote.jpg">
+                </div>
+        
+                <li>
+                    <a href="../index.html" id="homeBtn">
+                        <i class="material-icons">home</i>
+                        Home
+                    </a>
+                </li>
+        
+                <li v-if="user">
+                    <a href="../profile.html" id="profile_aTag">
+                        <i class="material-icons">account_circle</i>
+                        Profile
+                    </a>
+                </li>
+        
+                <!-- Modal Trigger -->
+                <li v-if="user == null || user.length < 1">
+                    <a href="#1" @click='showModal'>Login/Register</a>
+                </li>
+        
+                <li v-else>
+                    <a href="#" @click='logout' id="logoutIcon">
+                        <i class="material-icons">lock_outline</i>
+                        Logout
+                    </a>
+                </li>
+        
+            </ul>
+        
+            <!-- Show all / Control Panel -->
+            <div id="test1" class="col s12">
+                <div class="container">
+                    <h1 class="center" id="adminH1">Admin Panel</h1>
+        
+                    <div class="row">
+                        <div class="col s4 grey lighten-4" id="usersNamesDiv">
+                            <ul>
+                                <li v-if="obtained" class="center"><em>{{DisplayNoUserMsg}}</em></li>
+                                <li v-for="users in allUsers">
+                                    <a href="#" @click="obtain(users._id)" id="usersNameList">
+                                        {{ users.firstname }} {{ users.lastname}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+        
+                        <div class="col s7 grey lighten-4">
+                            <ul class="center">
+                                <li v-if="obtained"><em>Click on a user to see user's details</em></li>
+        
+                                <li v-if="singleUserLengthResult === 0">
+                                    <em>User have not cast a vote yet.</em>
+                                </li>
+                                <li v-else>
+                                    <div v-for="userPoll in userPollRes">
+                                        <b>{{ userPoll.title }}</b>
+                                        <br>
+                                        {{ userPoll.option }}
+                                        <hr>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a v-if="obtainedDel" @click="confirmDel(userId)" href="#"
+                                        class="btn waves-effect waves-light red center" id="adminControlDelBtn">delete</a>
+                                </li>
+                            </ul>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Return Deleted Users -->
+            <div id="test2" class="col s12">
+                <div class="container">
+                    <h1>Restore User</h1>
+        
+                    <table v-if="restoredUserLengthResult > 0" class="highlight">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>Restore</th>
+                            </tr>
+                        </thead>
+        
+                        <tbody v-for="(user, index) in obtainedUser">
+                            <tr>
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ user.firstname }}</td>
+                                <td>{{ user.lastname }}</td>
+                                <td @click="restoredUser(user._id)"><a href="#"><i class="material-icons blue-text"
+                                            id="restoreIcon">restore</i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul v-else>
+                        <li class="center blue-text">
+                            <em>No User has been deleted yet.</em>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+            <!-- Add New Poll -->
+            <div id="test3" class="col s12">
+                <h1 class="center">Add New Poll</h1>
+        
+                <div id="pollContainDiv">
+                    <form action="">
+                        <div class="row hoverable" id="pollFormBorderDiv">
+        
+                            <h4 class="center">Poll <span class="brown-text"><em>Form</em></span></h4>
+        
+                            <div class="col s12">
+                                <label for="topic">Topic</label>
+                                <input v-model="topic" type="text" name="topic">
+                            </div>
+        
+                            <div class="col s12">
+                                <label for="title">Title</label>
+                                <input v-model="title" type="text" name="title">
+                            </div>
+        
+                            <div class="col s12">
+                                <label for="optionA">OptionA</label>
+                                <input v-model="optionA" type="text" name="optionA">
+                            </div>
+        
+                            <div class="col s12">
+                                <label for="optionB">OptionB</label>
+                                <input v-model="optionB" type="text" name="optionB">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button @click="addNewPoll" type="button" class="col s12 btn-large">
+                                submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        
+            <!-- FOOTER -->
+            <!-- <footer class="page-footer green center" id="footer">
+                &copy; Poll voting system {{ newDate.getFullYear() }}
+            </footer> -->
+
+            <footer class="page-footer green">
+            
+                <div class="footer-copyright">
+                    <div class="container">
+                        &copy; Poll voting system {{ newDate.getFullYear() }}<i><b> igc@gmail.com </b></i>
+            
+                        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+       
+
+       
+    </div>
+    
+    <script src="../js/socket.io.min.js"></script>
+    <script src="../js/socketCOn.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/materialize.min.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <script src="../js/sweetalert2.all.min.js"></script>    
+    <script src="../js/poll.js"></script>
+    <script src="../js/pollStyle.js"></script>    
+</body>
+</html>
